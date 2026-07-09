@@ -26,6 +26,7 @@ export default function ServicesPage() {
   const [bookingServiceId, setBookingServiceId] = useState(null);
   const [bookingDate, setBookingDate] = useState("");
   const [bookingAddressId, setBookingAddressId] = useState("");
+  const [bookingLoading, setBookingLoading] = useState(false);
 
   const page = parseInt(searchParams.get("page")) || 1;
 
@@ -73,13 +74,16 @@ export default function ServicesPage() {
   };
 
   const confirmBooking = async () => {
-    if (!bookingDate || !bookingAddressId) return;
+    if (!bookingDate || !bookingAddressId || bookingLoading) return;
+    setBookingLoading(true);
     try {
       await dispatch(createBookingThunk({ serviceId: bookingServiceId, bookingDate, addressId: bookingAddressId })).unwrap();
       setBookingServiceId(null);
+      setBookingLoading(false);
       navigate("/my-bookings");
     } catch (err) {
       console.error("Booking failed", err);
+      setBookingLoading(false);
     }
   };
 
@@ -292,8 +296,12 @@ export default function ServicesPage() {
                   </div>
                 </div>
                 <div className="flex gap-3 mt-6">
-                  <button onClick={confirmBooking} disabled={!bookingDate || !bookingAddressId} className="flex-1 bg-primary-600 text-white py-2.5 rounded-xl font-semibold hover:bg-primary-700 transition disabled:opacity-50">
-                    Confirm Booking
+                  <button onClick={confirmBooking} disabled={!bookingDate || !bookingAddressId || bookingLoading} className="flex-1 bg-primary-600 text-white py-2.5 rounded-xl font-semibold hover:bg-primary-700 transition disabled:opacity-50 flex items-center justify-center gap-2">
+                    {bookingLoading ? (
+                      <><Loader2 size={16} className="animate-spin" /> Confirming...</>
+                    ) : (
+                      "Confirm Booking"
+                    )}
                   </button>
                   <button onClick={() => setBookingServiceId(null)} className="flex-1 bg-slate-100 text-slate-700 py-2.5 rounded-xl font-semibold hover:bg-slate-200 transition">
                     Cancel

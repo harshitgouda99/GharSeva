@@ -15,6 +15,7 @@ export default function MyBookings() {
   const [reviewText, setReviewText] = useState("");
   const [reviewError, setReviewError] = useState("");
   const [filter, setFilter] = useState("all");
+  const [cancelConfirmId, setCancelConfirmId] = useState(null);
 
   const isProvider = user?.role === "provider";
 
@@ -27,9 +28,12 @@ export default function MyBookings() {
   }, [dispatch, isProvider]);
 
   const handleCancel = (id) => {
-    if (window.confirm("Cancel this booking?")) {
-      dispatch(cancelBookingThunk(id));
-    }
+    setCancelConfirmId(id);
+  };
+
+  const confirmCancel = () => {
+    dispatch(cancelBookingThunk(cancelConfirmId));
+    setCancelConfirmId(null);
   };
 
   const handleAccept = (id) => dispatch(acceptBookingThunk(id));
@@ -140,6 +144,33 @@ export default function MyBookings() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Cancel Confirmation Modal */}
+      {cancelConfirmId && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50" onClick={() => setCancelConfirmId(null)}>
+          <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-bold text-slate-800">Cancel Booking</h3>
+              <button onClick={() => setCancelConfirmId(null)} className="p-1 text-slate-400 hover:text-slate-600"><X size={18} /></button>
+            </div>
+            <p className="text-sm text-slate-500 mb-6">Are you sure you want to cancel this booking? This action cannot be undone.</p>
+            <div className="flex gap-3">
+              <button
+                onClick={confirmCancel}
+                className="flex-1 bg-red-600 text-white py-2.5 rounded-xl font-semibold hover:bg-red-700 transition"
+              >
+                Yes, Cancel
+              </button>
+              <button
+                onClick={() => setCancelConfirmId(null)}
+                className="flex-1 bg-slate-100 text-slate-700 py-2.5 rounded-xl font-semibold hover:bg-slate-200 transition"
+              >
+                Keep Booking
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
