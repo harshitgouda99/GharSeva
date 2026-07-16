@@ -4,6 +4,7 @@ import { fetchCustomerBookings, fetchProviderBookings, cancelBookingThunk, accep
 import { addReviewThunk } from "../store/slices/reviewsSlice";
 import StarRating from "../components/StarRating";
 import { Loader2, X, MessageSquare } from "lucide-react";
+import { IMAGE_BASE_URL } from "../utils/api";
 
 export default function MyBookings() {
   const dispatch = useDispatch();
@@ -100,7 +101,7 @@ export default function MyBookings() {
             <div key={b._id} className="bg-white rounded-xl p-4 shadow-sm border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:shadow-md transition">
               <div className="flex items-start gap-3">
                 {b.serviceId?.serviceImage ? (
-                  <img src={`http://localhost:5001${b.serviceId.serviceImage}`} alt="" className="w-14 h-14 rounded-xl object-cover shrink-0" />
+                  <img src={`${IMAGE_BASE_URL}${b.serviceId.serviceImage}`} alt="" className="w-14 h-14 rounded-xl object-cover shrink-0" />
                 ) : (
                   <div className="w-14 h-14 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600 font-bold text-sm shrink-0">SVC</div>
                 )}

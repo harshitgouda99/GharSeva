@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProviderBookings, acceptBookingThunk, rejectBookingThunk, completeBookingThunk } from "../store/slices/bookingsSlice";
 import { fetchMyServices, createServiceThunk, updateServiceThunk, deleteServiceThunk, fetchCategories } from "../store/slices/servicesSlice";
 import { Briefcase, DollarSign, CheckCircle, Clock, Plus, Pencil, Trash2, Loader2, Star, X } from "lucide-react";
-import api from "../utils/api";
+import api, { IMAGE_BASE_URL } from "../utils/api";
 import StarRating from "../components/StarRating";
 import { fetchProviderReviews } from "../store/slices/reviewsSlice";
 
@@ -315,7 +315,7 @@ const { reviews: providerReviews, loading: reviewsLoading } = useSelector((state
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {providerServices.map((svc) => (
                 <div key={svc._id} className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-                  <img src={svc.serviceImage ? `http://localhost:5001${svc.serviceImage}` : "https://via.placeholder.com/300x150?text=Service"} alt={svc.serviceTitle} className="w-full h-36 object-cover" />
+                  <img src={svc.serviceImage ? `${IMAGE_BASE_URL}${svc.serviceImage}` : "https://via.placeholder.com/300x150?text=Service"} alt={svc.serviceTitle} className="w-full h-36 object-cover" />
                   <div className="p-4">
                     <h4 className="font-bold text-slate-800 truncate">{svc.serviceTitle}</h4>
                     <p className="text-xs text-slate-500 mt-1">{svc.categoryId?.name || "Category"}</p>
@@ -353,7 +353,7 @@ const { reviews: providerReviews, loading: reviewsLoading } = useSelector((state
                 <div key={review._id} className="border-b pb-4 last:border-0 last:pb-0">
                   <div className="flex items-center gap-3">
                     {review.customerId?.profileImage ? (
-                      <img src={`http://localhost:5001${review.customerId.profileImage}`} alt="" className="w-8 h-8 rounded-full object-cover" />
+                      <img src={`${IMAGE_BASE_URL}${review.customerId.profileImage}`} alt="" className="w-8 h-8 rounded-full object-cover" />
                     ) : (
                       <div className="w-8 h-8 rounded-full bg-primary-50 text-primary-600 flex items-center justify-center font-bold text-xs">
                         {review.customerId?.fullName?.[0] || "U"}

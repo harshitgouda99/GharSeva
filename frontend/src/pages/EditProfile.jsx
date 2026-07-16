@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfileUser, clearAuthError } from '../store/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { IMAGE_BASE_URL } from '../utils/api';
 
 export default function EditProfile() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function EditProfile() {
         phone: user.phone || ''
       });
       if (user.profileImage) {
-        setImagePreview(user.profileImage.startsWith('http') ? user.profileImage : `http://localhost:5001${user.profileImage}`);
+        setImagePreview(user.profileImage.startsWith('http') ? user.profileImage : `${IMAGE_BASE_URL}${user.profileImage}`);
       }
     }
   }, [user, reset]);

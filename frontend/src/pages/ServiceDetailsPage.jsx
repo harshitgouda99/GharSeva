@@ -8,6 +8,7 @@ import { toggleFavoriteThunk, fetchFavorites } from "../store/slices/favoritesSl
 import { fetchAddresses } from "../store/slices/addressesSlice";
 import StarRating from "../components/StarRating";
 import { ArrowLeft, Heart, Star, User, Calendar, MapPin, Loader2 } from "lucide-react";
+import { IMAGE_BASE_URL } from "../utils/api";
 
 export default function ServiceDetailsPage() {
   const { id } = useParams();
@@ -86,7 +87,7 @@ export default function ServiceDetailsPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="grid md:grid-cols-2">
           <img
-            src={service.serviceImage ? `http://localhost:5001${service.serviceImage}` : "https://via.placeholder.com/500x400?text=Service"}
+            src={service.serviceImage ? `${IMAGE_BASE_URL}${service.serviceImage}` : "https://via.placeholder.com/500x400?text=Service"}
             alt={service.serviceTitle}
             className="w-full h-64 md:h-full object-cover"
           />
@@ -111,7 +112,7 @@ export default function ServiceDetailsPage() {
             {service.providerId && (
               <div className="flex items-center gap-3 mt-4 p-3 bg-slate-50 rounded-xl">
                 {service.providerId.profileImage ? (
-                  <img src={`http://localhost:5001${service.providerId.profileImage}`} alt="" className="w-10 h-10 rounded-full object-cover" />
+                  <img src={`${IMAGE_BASE_URL}${service.providerId.profileImage}`} alt="" className="w-10 h-10 rounded-full object-cover" />
                 ) : (
                   <div className="w-10 h-10 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold text-sm">
                     <User size={18} />
@@ -218,7 +219,7 @@ export default function ServiceDetailsPage() {
               <div key={review._id} className="border-b border-slate-50 pb-4 last:border-0 last:pb-0">
                 <div className="flex items-center gap-3">
                   {review.customerId?.profileImage ? (
-                    <img src={`http://localhost:5001${review.customerId.profileImage}`} alt="" className="w-8 h-8 rounded-full object-cover" />
+                    <img src={`${IMAGE_BASE_URL}${review.customerId.profileImage}`} alt="" className="w-8 h-8 rounded-full object-cover" />
                   ) : (
                     <div className="w-8 h-8 rounded-full bg-primary-50 text-primary-600 flex items-center justify-center font-bold text-xs">
                       {review.customerId?.fullName?.[0] || "U"}

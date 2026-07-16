@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchFavorites, toggleFavoriteThunk } from "../store/slices/favoritesSlice";
 import { Heart, Star, Loader2 } from "lucide-react";
+import { IMAGE_BASE_URL } from "../utils/api";
 
 export default function Favorites() {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export default function Favorites() {
               <div key={fav._id} className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition group">
                 <div className="relative">
                   <img
-                    src={svc.serviceImage ? `http://localhost:5001${svc.serviceImage}` : "https://via.placeholder.com/300x200?text=Service"}
+                    src={svc.serviceImage ? `${IMAGE_BASE_URL}${svc.serviceImage}` : "https://via.placeholder.com/300x200?text=Service"}
                     alt={svc.serviceTitle}
                     className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                   />

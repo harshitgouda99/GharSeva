@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Bell, User, LogOut, ShieldAlert, CheckCircle, Menu } from 'lucide-react';
 import { logout } from '../store/slices/authSlice';
 import { fetchNotifications, markNotificationRead } from '../store/slices/notificationsSlice';
+import { IMAGE_BASE_URL } from '../utils/api';
+
 
 const Navbar = ({ onMenuClick }) => {
   const dispatch = useDispatch();
@@ -164,7 +166,7 @@ const Navbar = ({ onMenuClick }) => {
               >
                 {user?.profileImage ? (
                   <img
-                    src={`http://localhost:5001${user.profileImage}`}
+                    src={`${IMAGE_BASE_URL}${user.profileImage}`}
                     alt={user.fullName}
                     className="w-8 h-8 rounded-full object-cover border border-slate-100"
                   />

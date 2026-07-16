@@ -6,6 +6,7 @@ import { createBookingThunk } from "../store/slices/bookingsSlice";
 import { toggleFavoriteThunk, fetchFavorites } from "../store/slices/favoritesSlice";
 import { fetchAddresses } from "../store/slices/addressesSlice";
 import { Heart, Search, SlidersHorizontal, Star, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { IMAGE_BASE_URL } from "../utils/api";
 
 export default function ServicesPage() {
   const dispatch = useDispatch();
@@ -180,7 +181,7 @@ export default function ServicesPage() {
                 <div key={svc._id} className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-all group">
                   <div className="relative">
                     <img
-                      src={svc.serviceImage ? `http://localhost:5001${svc.serviceImage}` : "https://via.placeholder.com/300x200?text=Service"}
+                      src={svc.serviceImage ? `${IMAGE_BASE_URL}${svc.serviceImage}` : "https://via.placeholder.com/300x200?text=Service"}
                       alt={svc.serviceTitle}
                       className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300"
                     />

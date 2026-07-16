@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchProfile } from "../store/slices/authSlice";
+import { IMAGE_BASE_URL } from "../utils/api";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function Profile() {
     if (!img) return "https://via.placeholder.com/150";
     if (img.startsWith("http")) return img;
     // Base server path
-    return `http://localhost:5001${img}`;
+    return `${IMAGE_BASE_URL}${img}`;
   };
 
   return (

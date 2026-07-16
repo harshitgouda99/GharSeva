@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/authSlice";
+import { IMAGE_BASE_URL } from "../utils/api";
 import { 
   Home, 
   LogIn, 
@@ -115,7 +116,7 @@ export default function Sidebar() {
         <div className="pt-6 border-t border-slate-800/80">
           <div className="flex items-center space-x-3 mb-4 px-2">
             <img
-              src={user.profileImage ? (user.profileImage.startsWith("http") ? user.profileImage : `http://localhost:5001${user.profileImage}`) : "https://via.placeholder.com/150"}
+              src={user.profileImage ? (user.profileImage.startsWith("http") ? user.profileImage : `${IMAGE_BASE_URL}${user.profileImage}`) : "https://via.placeholder.com/150"}
               alt={user.fullName || "User Avatar"}
               className="w-10 h-10 rounded-full object-cover border border-slate-700"
             />

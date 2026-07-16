@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchCustomerBookings } from "../store/slices/bookingsSlice";
 import { fetchFavorites } from "../store/slices/favoritesSlice";
 import { CalendarDays, Heart, Clock, CheckCircle, MapPin, ArrowRight, Loader2 } from "lucide-react";
+import { IMAGE_BASE_URL } from "../utils/api";
 
 export default function CustomerDashboard() {
   const dispatch = useDispatch();
@@ -96,7 +97,7 @@ export default function CustomerDashboard() {
               <div key={b._id} className="px-5 py-3.5 flex items-center justify-between hover:bg-slate-50/50 transition">
                 <div className="flex items-center gap-3">
                   {b.serviceId?.serviceImage ? (
-                    <img src={`http://localhost:5001${b.serviceId.serviceImage}`} alt="" className="w-10 h-10 rounded-lg object-cover" />
+                    <img src={`${IMAGE_BASE_URL}${b.serviceId.serviceImage}`} alt="" className="w-10 h-10 rounded-lg object-cover" />
                   ) : (
                     <div className="w-10 h-10 rounded-lg bg-primary-50 flex items-center justify-center text-primary-600 font-bold text-xs">SVC</div>
                   )}
